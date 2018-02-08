@@ -1,7 +1,6 @@
-package com.example.tanxiao.opengldemo.render;
+package com.example.tanxiao.opengldemo.sample;
 
 import android.opengl.GLES20;
-import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.os.SystemClock;
 
@@ -15,19 +14,14 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 /**
- * Created by TX on 2018/2/7.
+ * Created by TX on 2018/2/8.
  * Class note:
+ * 旋转的彩色三角形
  */
 
-public class SimpleTestRender implements GLSurfaceView.Renderer {
+public class RotateTriangle implements IShape {
 
-    private static final String TAG = SimpleTestRender.class.getSimpleName();
-
-    // New class members
-    /** Store our model data in a float buffer. */
     private FloatBuffer mTriangle1Vertices;
-    private FloatBuffer mTriangle2Vertices;
-    private FloatBuffer mTriangle3Vertices;
 
     /** How many bytes per float. */
     private final int mBytesPerFloat = 4;
@@ -100,6 +94,7 @@ public class SimpleTestRender implements GLSurfaceView.Renderer {
                     + "   gl_FragColor = v_Color;     \n"     // Pass the color directly through the pipeline.
                     + "}                              \n";
 
+
     // This triangle is red, green, and blue.
     private static final float[] triangle1VerticesData = {
             // X, Y, Z,
@@ -113,10 +108,12 @@ public class SimpleTestRender implements GLSurfaceView.Renderer {
             0.0f, 0.559016994f, 0.0f,
             0.0f, 1.0f, 0.0f, 1.0f};
 
-    /**
-     * Initialize the model data.
-     */
-    public SimpleTestRender() {
+    public RotateTriangle() {
+        init();
+    }
+
+
+    public void init() {
         // Initialize the buffers.
         mTriangle1Vertices = ByteBuffer.allocateDirect(triangle1VerticesData.length * mBytesPerFloat)
                 .order(ByteOrder.nativeOrder()).asFloatBuffer();
@@ -124,9 +121,8 @@ public class SimpleTestRender implements GLSurfaceView.Renderer {
         mTriangle1Vertices.put(triangle1VerticesData).position(0);
     }
 
-
-    @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+
         // Set the background clear color to gray.
         GLES20.glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
 
@@ -156,8 +152,8 @@ public class SimpleTestRender implements GLSurfaceView.Renderer {
         }
 
         // Bind attributes
-        GLES20.glBindAttribLocation(programHandle, 0, "a_Position");
-        GLES20.glBindAttribLocation(programHandle, 1, "a_Color");
+        //GLES20.glBindAttribLocation(programHandle, 0, "a_Position");
+        //GLES20.glBindAttribLocation(programHandle, 1, "a_Color");
 
         // Set program handles. These will later be used to pass in values to the program.
         mMVPMatrixHandle = GLES20.glGetUniformLocation(programHandle, "u_MVPMatrix");
@@ -168,7 +164,6 @@ public class SimpleTestRender implements GLSurfaceView.Renderer {
         GLES20.glUseProgram(programHandle);
     }
 
-    @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
 
         // Set the OpenGL viewport to the same size as the surface.
@@ -188,7 +183,6 @@ public class SimpleTestRender implements GLSurfaceView.Renderer {
         Matrix.frustumM(mProjectionMatrix, 0, left, right, bottom, top, near, far);
     }
 
-    @Override
     public void onDrawFrame(GL10 gl) {
         GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT | GLES20.GL_COLOR_BUFFER_BIT);
 
@@ -232,4 +226,5 @@ public class SimpleTestRender implements GLSurfaceView.Renderer {
         GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mMVPMatrix, 0);
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 3);
     }
+
 }

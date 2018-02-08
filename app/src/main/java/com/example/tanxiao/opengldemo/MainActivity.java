@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private void initData() {
         List<String> list = new ArrayList<>();
         list.add("simple_Gl");
+        list.add("Gl_camera_Preview");
         adapter.replaceAll(list);
     }
 
@@ -70,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
         switch (position) {
             case 0: {
                 intent = new Intent(this, GlActivity.class);
+            }
+            break;
+            case 1: {
+                intent = new Intent(this, GlPreviewActivity.class);
             }
             break;
             default:

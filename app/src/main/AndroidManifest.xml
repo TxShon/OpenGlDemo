@@ -6,6 +6,8 @@
     <uses-feature android:glEsVersion="0x00020000" android:required="true"/>
     <uses-feature android:glEsVersion="0x00030000" android:required="true"/>
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".GlActivity" android:hardwareAccelerated="true"/>
+        <activity android:name=".GlPreviewActivity" android:hardwareAccelerated="true"/>
     </application>
 
 </manifest>
