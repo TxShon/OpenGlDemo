@@ -77,7 +77,7 @@ public class CameraDrawer {
     private int mMVPMatrixHandle;
     private int mProgramHandle;
     private int mTextureHandle;
-    private int mTextureatrixHandle;
+    private int mTextureMatrixHandle;
 
 
     public CameraDrawer(int textureId) {
@@ -109,7 +109,7 @@ public class CameraDrawer {
         mPositionHandle = GLES20.glGetAttribLocation(mProgramHandle, "aPosition");
         mTextureCoordHandle = GLES20.glGetAttribLocation(mProgramHandle, "aTextureCoordinate");
         mTextureHandle = GLES20.glGetUniformLocation(mProgramHandle, "uTextureSampler");
-        mTextureatrixHandle = GLES20.glGetUniformLocation(mProgramHandle, "uTextureMatrix");
+        mTextureMatrixHandle = GLES20.glGetUniformLocation(mProgramHandle, "uTextureMatrix");
         mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgramHandle, "uMVPMatrix");
 
         GLES20.glUseProgram(mProgramHandle);
@@ -124,7 +124,7 @@ public class CameraDrawer {
 
         // GLES20.glUniformMatrix4fv(mMVPMatrixHandle,1,false,mtx,0);
 
-        GLES20.glUniformMatrix4fv(mTextureatrixHandle, 1, false, mtx, 0);
+        GLES20.glUniformMatrix4fv(mTextureMatrixHandle, 1, false, mtx, 0);
         GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mMVPMatrix, 0);
 
         GLES20.glVertexAttribPointer(mPositionHandle, 2, GLES20.GL_FLOAT, false,
