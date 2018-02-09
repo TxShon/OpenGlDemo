@@ -97,7 +97,7 @@ public class CameraDrawer {
                 .asFloatBuffer();
         textureVerticesBuffer.put(textureVertices).position(0);
 
-        // TODO: 2018/2/9 ??? 意义
+        // 初始化正交矩阵
         Matrix.setIdentityM(mMVPMatrix, 0);
 
         mProgramHandle = GlCommonUtil.createProgram(VERTEX_SHADER, FRAGMENT_SHADER);
