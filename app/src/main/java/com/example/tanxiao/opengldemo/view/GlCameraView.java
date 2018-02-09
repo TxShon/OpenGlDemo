@@ -5,6 +5,7 @@ import android.graphics.SurfaceTexture;
 import android.opengl.GLES11Ext;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
+import android.opengl.Matrix;
 import android.util.AttributeSet;
 
 import com.example.tanxiao.opengldemo.utils.CameraUtil;
@@ -49,6 +50,7 @@ public class GlCameraView extends GLSurfaceView {
             }
         };
         private CameraDrawer mCameraDrawer;
+        private float[] mtx = new float[16];;
 
         public CameraRender(GlCameraView glCameraView) {
             this.glCameraView = glCameraView;
@@ -65,6 +67,7 @@ public class GlCameraView extends GLSurfaceView {
         @Override
         public void onSurfaceChanged(GL10 gl, int width, int height) {
             GLES20.glViewport(0,0,width,height);
+            Matrix.setIdentityM(mtx, 0);
             CameraUtil.openCamera(surfaceTexture);
         }
 
@@ -74,7 +77,6 @@ public class GlCameraView extends GLSurfaceView {
                 return;
             }
             surfaceTexture.updateTexImage();
-            float[] mtx = new float[16];
             surfaceTexture.getTransformMatrix(mtx);
             mCameraDrawer.draw(mtx);
         }
