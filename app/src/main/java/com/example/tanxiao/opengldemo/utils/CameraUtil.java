@@ -27,7 +27,7 @@ public class CameraUtil {
             parameters.set("orientation", "portrait");
             parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
             parameters.setPreviewSize(1280, 720);
-            camera.setDisplayOrientation(0);
+            camera.setDisplayOrientation(90);
             camera.setParameters(parameters);
             camera.setPreviewTexture(surfaceTexture);
             camera.startPreview();
