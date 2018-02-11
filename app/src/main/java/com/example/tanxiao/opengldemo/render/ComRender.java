@@ -2,7 +2,6 @@ package com.example.tanxiao.opengldemo.render;
 
 import android.opengl.GLSurfaceView;
 
-import com.example.tanxiao.opengldemo.sample.RotateTriangle;
 import com.example.tanxiao.opengldemo.sample.IShape;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -15,25 +14,24 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class ComRender implements GLSurfaceView.Renderer {
 
+    private final IShape shape;
 
-    private final IShape mRotateTriangle;
-
-    public ComRender() {
-        mRotateTriangle = new RotateTriangle();
+    public ComRender(IShape shape) {
+        this.shape = shape;
     }
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        mRotateTriangle.onSurfaceCreated(gl, config);
+        shape.onSurfaceCreated(gl, config);
     }
 
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
-        mRotateTriangle.onSurfaceChanged(gl, width, height);
+        shape.onSurfaceChanged(gl, width, height);
     }
 
     @Override
     public void onDrawFrame(GL10 gl) {
-        mRotateTriangle.onDrawFrame(gl);
+        shape.onDrawFrame(gl);
     }
 }

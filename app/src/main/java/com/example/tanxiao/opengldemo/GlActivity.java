@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.tanxiao.opengldemo.render.ComRender;
+import com.example.tanxiao.opengldemo.sample.shape.RectangleOrtho;
 
 /**
  * Created by TX on 2018/2/7.
@@ -51,7 +52,8 @@ public class GlActivity extends AppCompatActivity {
             glSurfaceView.setEGLContextClientVersion(2);
 
             // Set the renderer to our demo renderer, defined below.
-            glSurfaceView.setRenderer(new ComRender());
+//            glSurfaceView.setRenderer(new ComRender(new RotateTriangle()));
+            glSurfaceView.setRenderer(new ComRender(new RectangleOrtho(this)));
         } else {
             // This is where you could create an OpenGL ES 1.x compatible
             // renderer if you wanted to support both ES 1 and ES 2.

@@ -1,7 +1,14 @@
 package com.example.tanxiao.opengldemo.utils;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.opengl.GLES20;
 import android.util.Log;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * Created by TX on 2018/2/8.
@@ -16,7 +23,8 @@ public class GlCommonUtil {
 
     /**
      * 创建shader程序
-     * @param vertexSource 顶点shader原语
+     *
+     * @param vertexSource   顶点shader原语
      * @param fragmentSource 片元shader原语
      * @return
      */
@@ -65,8 +73,9 @@ public class GlCommonUtil {
 
     /**
      * 创建shader
+     *
      * @param shaderType shader类型
-     * @param source shader原语
+     * @param source     shader原语
      * @return
      */
     public static int loadShader(int shaderType, String source) {
@@ -93,6 +102,7 @@ public class GlCommonUtil {
 
     /**
      * 检查步骤错误
+     *
      * @param op 步骤内容
      */
     public static void checkGlError(String op) {
@@ -101,6 +111,60 @@ public class GlCommonUtil {
             Log.e(TAG, op + ": glError " + error);
             throw new RuntimeException(op + ": glError " + error);
         }
+    }
+
+    /**
+     * 从文件中读取shader原语
+     *
+     * @param context
+     * @param shaderSource
+     * @return
+     */
+    public static String readShaderFromSource(Context context, int shaderSource) {
+        StringBuilder body = new StringBuilder();
+        InputStream inputStream = null;
+        InputStreamReader inputStreamReader = null;
+        BufferedReader reader = null;
+        try {
+            inputStream = context.getResources().openRawResource(shaderSource);
+            inputStreamReader = new InputStreamReader(inputStream);
+            reader = new BufferedReader(inputStreamReader);
+            String line;
+            while ((line=reader.readLine()) != null) {
+                body.append(line);
+                body.append('\n');
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("could not open resource: " + shaderSource, e);
+        } catch (Resources.NotFoundException rfe) {
+            throw new RuntimeException("Resource not found: " + shaderSource, rfe);
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (inputStreamReader != null) {
+                try {
+                    inputStreamReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return body.toString();
     }
 
 }

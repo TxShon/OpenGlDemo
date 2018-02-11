@@ -1,9 +1,10 @@
-package com.example.tanxiao.opengldemo.sample;
+package com.example.tanxiao.opengldemo.sample.shape;
 
 import android.opengl.GLES20;
 import android.opengl.Matrix;
 import android.os.SystemClock;
 
+import com.example.tanxiao.opengldemo.sample.IShape;
 import com.example.tanxiao.opengldemo.utils.GlCommonUtil;
 
 import java.nio.ByteBuffer;
