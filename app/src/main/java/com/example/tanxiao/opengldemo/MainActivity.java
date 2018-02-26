@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         List<String> list = new ArrayList<>();
         list.add("simple_Gl");
         list.add("Gl_camera_Preview");
+        list.add("Gl_texture");
         adapter.replaceAll(list);
     }
 
@@ -75,6 +76,10 @@ public class MainActivity extends AppCompatActivity {
             break;
             case 1: {
                 intent = new Intent(this, GlPreviewActivity.class);
+            }
+            break;
+            case 2: {
+                intent = new Intent(this, GLTextureActivity.class);
             }
             break;
             default:

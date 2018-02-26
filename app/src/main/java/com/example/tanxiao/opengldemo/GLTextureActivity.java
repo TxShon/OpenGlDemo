@@ -8,22 +8,21 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.tanxiao.opengldemo.render.ComRender;
-import com.example.tanxiao.opengldemo.sample.shape.Rectangle3D;
+import com.example.tanxiao.opengldemo.render.TextureRender;
 
 /**
- * Created by TX on 2018/2/7.
+ * Created by TX on 2018/2/24.
  * Class note:
  */
 
-public class GlActivity extends AppCompatActivity {
+public class GLTextureActivity extends AppCompatActivity {
 
     private GLSurfaceView glSurfaceView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gl);
+        setContentView(R.layout.activity_gl_texture);
         initGl();
     }
 
@@ -52,8 +51,8 @@ public class GlActivity extends AppCompatActivity {
             glSurfaceView.setEGLContextClientVersion(2);
 
             // Set the renderer to our demo renderer, defined below.
-//            glSurfaceView.setRenderer(new ComRender(new RotateTriangle()));
-            glSurfaceView.setRenderer(new ComRender(new Rectangle3D(this)));
+            //            glSurfaceView.setRenderer(new ComRender(new RotateTriangle()));
+            glSurfaceView.setRenderer(new TextureRender(this));
         } else {
             // This is where you could create an OpenGL ES 1.x compatible
             // renderer if you wanted to support both ES 1 and ES 2.
