@@ -75,6 +75,8 @@ public class TextureRender implements GLSurfaceView.Renderer {
         Matrix.translateM(modelMatrix,0,0f,0f,-2f);
         //绕x轴旋转60度
         Matrix.rotateM(modelMatrix,0,-60f,1f,0f,0f);
+        //缩放0.8f
+        Matrix.scaleM(modelMatrix,0,0.8f,0.8f,0.8f);
 
         //矩阵相乘，并将结果存入mMvpMatrix
         Matrix.multiplyMM(mMvpMatrix,0,projectionMatrix,0,modelMatrix,0);

@@ -45,11 +45,11 @@ public class Table {
     private final VertexArray vertexArray;
 
     public Table() {
-        vertexArray=new VertexArray(VERTEX_DATA);
+        vertexArray = new VertexArray(VERTEX_DATA);
 
     }
 
-    public void bindData(TextureShaderProgram textureShaderProgram){
+    public void bindData(TextureShaderProgram textureShaderProgram) {
         vertexArray.setVertexAttributePointer(
                 0,
                 textureShaderProgram.getPositionAttributeLocation(),
@@ -65,7 +65,7 @@ public class Table {
         );
     }
 
-    public void draw(){
+    public void draw() {
         glDrawArrays(GL_TRIANGLE_FAN, 0, 6);
     }
 }
