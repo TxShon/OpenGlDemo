@@ -25,6 +25,7 @@
         <activity android:name=".GlActivity" android:hardwareAccelerated="true"/>
         <activity android:name=".GlPreviewActivity" android:hardwareAccelerated="true"/>
         <activity android:name=".GLTextureActivity" android:hardwareAccelerated="true"/>
+        <activity android:name=".GLTextureWithMalletsActivity" android:hardwareAccelerated="true"/>
     </application>
 
 </manifest>
