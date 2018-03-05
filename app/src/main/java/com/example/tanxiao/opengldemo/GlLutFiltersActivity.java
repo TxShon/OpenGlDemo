@@ -5,14 +5,17 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 /**
- * Created by TX on 2018/2/8.
+ * Created by TX on 2018/3/5.
  * Class note:
+ * 演示LUT方式生产的滤镜
  */
 
-public class GlPreviewActivity extends AppCompatActivity {
+public class GlLutFiltersActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gl_preview);
+        setContentView(R.layout.activity_gl_lut_filters);
+
     }
 }

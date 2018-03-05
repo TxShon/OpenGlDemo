@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         list.add("Gl_camera_Preview");
         list.add("Gl_texture");
         list.add("Gl_texture_with_mallets");
+        list.add("Gl_LUT_filters");
         adapter.replaceAll(list);
     }
 
@@ -85,6 +86,10 @@ public class MainActivity extends AppCompatActivity {
             break;
             case 3: {
                 intent = new Intent(this, GLTextureWithMalletsActivity.class);
+            }
+            break;
+            case 4: {
+                intent = new Intent(this, GlLutFiltersActivity.class);
             }
             break;
             default:

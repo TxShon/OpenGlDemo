@@ -2,13 +2,13 @@ package com.example.tanxiao.opengldemo.view;
 
 import android.content.Context;
 import android.graphics.SurfaceTexture;
-import android.opengl.GLES11Ext;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.util.AttributeSet;
 
 import com.example.tanxiao.opengldemo.utils.CameraUtil;
+import com.example.tanxiao.opengldemo.utils.TextureHelper;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -50,7 +50,7 @@ public class GlCameraView extends GLSurfaceView {
             }
         };
         private CameraDrawer mCameraDrawer;
-        private float[] mtx = new float[16];;
+        private float[] mtx = new float[16];
 
         public CameraRender(GlCameraView glCameraView) {
             this.glCameraView = glCameraView;
@@ -58,15 +58,15 @@ public class GlCameraView extends GLSurfaceView {
 
         @Override
         public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-            int textureId = createOESTextureObject();
+            int textureId = TextureHelper.createOESTextureObject();
             surfaceTexture = new SurfaceTexture(textureId);
             surfaceTexture.setOnFrameAvailableListener(onFrameAvailableListener);
-            mCameraDrawer = new CameraDrawer(textureId);
+            mCameraDrawer = new CameraDrawer(glCameraView.getContext(),textureId);
         }
 
         @Override
         public void onSurfaceChanged(GL10 gl, int width, int height) {
-            GLES20.glViewport(0,0,width,height);
+            GLES20.glViewport(0, 0, width, height);
             Matrix.setIdentityM(mtx, 0);
             CameraUtil.openCamera(surfaceTexture);
         }
@@ -80,25 +80,5 @@ public class GlCameraView extends GLSurfaceView {
             surfaceTexture.getTransformMatrix(mtx);
             mCameraDrawer.draw(mtx);
         }
-    }
-
-    public static int createOESTextureObject() {
-        int[] tex = new int[1];
-        //生成一个纹理
-        GLES20.glGenTextures(1, tex, 0);
-        //将此纹理绑定到外部纹理上
-        GLES20.glBindTexture(GLES11Ext.GL_TEXTURE_EXTERNAL_OES, tex[0]);
-        //设置纹理过滤参数
-        GLES20.glTexParameterf(GLES11Ext.GL_TEXTURE_EXTERNAL_OES,
-                GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_NEAREST);
-        GLES20.glTexParameterf(GLES11Ext.GL_TEXTURE_EXTERNAL_OES,
-                GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
-        GLES20.glTexParameterf(GLES11Ext.GL_TEXTURE_EXTERNAL_OES,
-                GL10.GL_TEXTURE_WRAP_S, GL10.GL_CLAMP_TO_EDGE);
-        GLES20.glTexParameterf(GLES11Ext.GL_TEXTURE_EXTERNAL_OES,
-                GL10.GL_TEXTURE_WRAP_T, GL10.GL_CLAMP_TO_EDGE);
-        //解除纹理绑定
-        GLES20.glBindTexture(GLES11Ext.GL_TEXTURE_EXTERNAL_OES, 0);
-        return tex[0];
     }
 }

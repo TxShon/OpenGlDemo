@@ -1,9 +1,11 @@
 package com.example.tanxiao.opengldemo.view;
 
+import android.content.Context;
 import android.opengl.GLES11Ext;
 import android.opengl.GLES20;
 import android.opengl.Matrix;
 
+import com.example.tanxiao.opengldemo.R;
 import com.example.tanxiao.opengldemo.utils.GlCommonUtil;
 
 import java.nio.ByteBuffer;
@@ -78,12 +80,23 @@ public class CameraDrawer {
     private int mProgramHandle;
     private int mTextureHandle;
     private int mTextureMatrixHandle;
+    private int vertexShaderResource;
+    private int fragmentShaderResource;
+    private Context context;
 
 
-    public CameraDrawer(int textureId) {
+    public CameraDrawer(Context context, int textureId) {
+        this(context, textureId, R.raw.preview_vertex_shader, R.raw.preview_fragment_shader);
+    }
+
+    public CameraDrawer(Context context, int textureId, int vertexShaderResource, int fragmentShaderResource) {
+        this.context = context;
         this.textureId = textureId;
+        this.vertexShaderResource = vertexShaderResource;
+        this.fragmentShaderResource = fragmentShaderResource;
         initGl();
     }
+
 
     private void initGl() {
 
@@ -100,7 +113,8 @@ public class CameraDrawer {
         // 初始化正交矩阵
         Matrix.setIdentityM(mMVPMatrix, 0);
 
-        mProgramHandle = GlCommonUtil.createProgram(VERTEX_SHADER, FRAGMENT_SHADER);
+        mProgramHandle = GlCommonUtil.createProgram(GlCommonUtil.readShaderFromSource(context, vertexShaderResource),
+                GlCommonUtil.readShaderFromSource(context, fragmentShaderResource));
 
         if (mProgramHandle == 0) {
             return;
